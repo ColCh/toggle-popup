@@ -11,7 +11,7 @@ Currently it's not in Chrome extensions store, so install with dev mode
  
 1. Open extensions page in Settings
 2. Set "developer mode"
-3. Drag __ext.crx__ into window
+3. Drag __ext.crx__ (link: [ext.crx](ext.crx)) into window
 
 # Development
 
