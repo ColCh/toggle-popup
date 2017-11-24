@@ -11,9 +11,8 @@ class YoutubePopup extends Popup {
 
     // language=CSS
     public static stylesToInject = `
-        .toggle-popup--active #masthead-positioner {
-          display: none !important;
-        }
+        .toggle-popup--active #masthead-container.ytd-app,
+        .toggle-popup--active #masthead-positioner,
         .toggle-popup--active #masthead-positioner-height-offset {
           display: none !important;
         }
@@ -22,6 +21,10 @@ class YoutubePopup extends Popup {
         }
         .toggle-popup--active #player {
           top: 0 !important;
+        }
+        .toggle-popup--active .ytd-watch,
+        .toggle-popup--active #page-manager.ytd-app {
+            margin-top: 0 !important;
         }
     `;
 
