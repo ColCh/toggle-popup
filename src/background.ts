@@ -1,4 +1,5 @@
 import Popup from "./popup";
+import VideoPopup from "./video-popup";
 import YoutubePopup from "./youtube-popup";
 
 chrome.contextMenus.create({
@@ -6,12 +7,15 @@ chrome.contextMenus.create({
 });
 
 async function main(info: chrome.contextMenus.OnClickData, tab: chrome.tabs.Tab) {
-    const isYoutube = YoutubePopup.isYoutube(tab);
+    const isVideo = await VideoPopup.isVideoPopup(tab);
+    const isYoutube = await YoutubePopup.isYoutube(tab);
 
     let popup;
 
     if (isYoutube) {
         popup = new YoutubePopup(tab);
+    } else if (isVideo) {
+        popup = new VideoPopup(tab);
     } else {
         popup = new Popup(tab);
     }

@@ -11,6 +11,17 @@ class Popup {
         popup: "popup",
     };
 
+    public static executeFunction(tab: chrome.tabs.Tab, func: any, args: any) {
+        return new Promise((res) => {
+            const code = `; 'use strict'; var res = (${func.toString()}).apply(null, ${JSON.stringify(args)}); res;`;
+            chrome.tabs.executeScript(tab.id, {
+                code,
+            }, (results: [any]) => {
+                res(results ? results[0] : undefined);
+            });
+        });
+    }
+
     public tab: chrome.tabs.Tab;
 
     constructor(tab: chrome.tabs.Tab) {
@@ -26,15 +37,8 @@ class Popup {
         });
     }
 
-    public executeFunction(func: any, args: any) {
-        return new Promise((res) => {
-            const code = `; 'use strict'; var res = (${func.toString()}).apply(null, ${JSON.stringify(args)}); res;`;
-            chrome.tabs.executeScript(this.tab.id, {
-                code,
-            }, (results: [any]) => {
-                res(results ? results[0] : undefined);
-            });
-        });
+    public async executeFunction(func: any, args: any) {
+        return Popup.executeFunction(this.tab, func, args);
     }
 
     public updateProperties(properties: chrome.tabs.UpdateProperties) {
